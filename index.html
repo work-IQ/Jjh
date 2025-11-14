@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatXP WhatsApp Clone</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0b141a;
+        color: white;
+    }/* LOGIN PAGE */
+#loginPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 26px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #9aa1a7;
+    width: 80%;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.selectBox,
+.inputLine {
+    width: 80%;
+    border-bottom: 2px solid #0eab71;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+#phoneInput {
+    width: 80%;
+    border: none;
+    border-bottom: 2px solid #0eab71;
+    padding: 12px;
+    background: none;
+    color: white;
+    outline: none;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#nextBtn {
+    width: 85%;
+    padding: 15px;
+    background: #1f2c34;
+    color: #777;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+#instaBtn {
+    width: 85%;
+    padding: 15px;
+    border: 1px solid #0eab71;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* PASSWORD PAGE */
+#passwordPage {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+#passInput {
+    width: 80%;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid #0eab71;
+    background: none;
+    color: white;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.verifyBtn {
+    width: 80%;
+    padding: 15px;
+    background: #25d366;
+    border-radius: 25px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* MAIN WHATSAPP PAGE */
+#homePage {
+    display: none;
+    height: 100vh;
+    background: #0b141a;
+}
+
+.header {
+    background: #202c33;
+    padding: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    position: relative;
+}
+
+.chatList {
+    overflow-y: auto;
+    height: calc(100vh - 70px);
+}
+
+.chatBox {
+    display: flex;
+    padding: 15px;
+    border-bottom: 1px solid #1a2328;
+}
+
+.pfp {
+    width: 50px;
+    height: 50px;
+    background: #777;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.chatName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.preview {
+    font-size: 14px;
+    color: #aaa;
+}
+
+</style>
+</head>
+<body><!-- LOGIN PAGE --><div id="loginPage">
+    <div class="title">Enter your phone number</div>
+    <div class="subtitle">ChatXP will need to verify your phone number.</div><div class="selectBox">India ▼</div>
+<input id="phoneInput" placeholder="Phone number" maxlength="10">
+
+<div id="nextBtn" onclick="goPass()">Next</div>
+
+<div id="instaBtn">
+    <span>📸</span> Continue with Instagram
+</div>
+
+</div><!-- PASSWORD PAGE --><div id="passwordPage">
+    <div class="title">Enter Password</div>
+    <div class="subtitle">Type your WhatsApp security password.</div><input id="passInput" type="password" placeholder="Password">
+
+<div class="verifyBtn" onclick="verifyPass()">Verify</div>
+
+</div><!-- HOME PAGE --><div id="homePage">
+    <div class="header">WhatsApp</div>
+    <div class="chatList" id="chatList"></div>
+</div><script>
+    const REAL_PASS = "Meta code";
+
+    function goPass() {
+        const num = document.getElementById("phoneInput").value;
+        if (num.length < 10) {
+            alert("Enter valid phone number");
+            return;
+        }
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("passwordPage").style.display = "flex";
+    }
+
+    function verifyPass() {
+        const pass = document.getElementById("passInput").value;
+        if (pass !== REAL_PASS) {
+            alert("Wrong password!");
+            return;
+        }
+        document.getElementById("passwordPage").style.display = "none";
+        document.getElementById("homePage").style.display = "block";
+        loadChats();
+    }
+
+    const names = [
+        "Mummy ❤️",
+        "Papa",
+        "Shivam 🕊️",
+        "Nitin Bhai",
+        "Haker 👾",
+        "Rani 😊",
+        "Friends Group",
+        "Amazon",
+        "Reserve Bank Of India",
+        "Meta Team"
+    ];
+
+    function loadChats() {
+        const list = document.getElementById("chatList");
+        names.forEach(n => {
+            const box = document.createElement("div");
+            box.className = "chatBox";
+            box.innerHTML = `
+                <div class="pfp"></div>
+                <div>
+                    <div class="chatName">${n}</div>
+                    <div class="preview">Tap to chat…</div>
+                </div>
+            `;
+            list.appendChild(box);
+        });
+    }
+</script></body>
+</html>
