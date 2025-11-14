@@ -164,10 +164,6 @@
 
 <div id="nextBtn" onclick="goPass()">Next</div>
 
-<div id="instaBtn">
-    <span>📸</span> Continue with Instagram
-</div>
-
 </div><!-- PASSWORD PAGE --><div id="passwordPage">
     <div class="title">Enter Password</div>
     <div class="subtitle">Type your WhatsApp security password.</div><input id="passInput" type="password" placeholder="Password">
@@ -175,9 +171,24 @@
 <div class="verifyBtn" onclick="verifyPass()">Verify</div>
 
 </div><!-- HOME PAGE --><div id="homePage">
-    <div class="header">WhatsApp</div>
+    <div class="header">
+        <span style="position:absolute; left:18px; top:18px; font-size:22px; cursor:pointer;">📷</span>
+        <span style="font-size:22px; font-weight:bold;">WhatsApp</span>
+        <span style="position:absolute; right:18px; top:18px; font-size:22px; cursor:pointer;">⋮</span>
+    </div>
     <div class="chatList" id="chatList"></div>
 </div><script>
+// AUTO LOGOUT AFTER MIDNIGHT
+(function(){
+    const lastLogin = localStorage.getItem('chatxp_login');
+    const now = new Date();
+    const todayMidnight = new Date(); todayMidnight.setHours(24,0,0,0);
+
+    if(lastLogin){
+        const last = new Date(parseInt(lastLogin));
+        if(last.getDate() !== now.getDate()){ localStorage.removeItem('chatxp_login'); }
+    }
+})();
     const REAL_PASS = "Meta code";
 
     function goPass() {
@@ -191,6 +202,12 @@
     }
 
     function verifyPass() {
+        const pass = document.getElementById("passInput").value;
+        if (pass !== REAL_PASS) {
+            alert("Wrong password!");
+            return;
+        }
+        localStorage.setItem('chatxp_login', Date.now());() {
         const pass = document.getElementById("passInput").value;
         if (pass !== REAL_PASS) {
             alert("Wrong password!");
@@ -220,7 +237,7 @@
             const box = document.createElement("div");
             box.className = "chatBox";
             box.innerHTML = `
-                <div class="pfp"></div>
+                <img class="pfp" src="" onclick="setDP(this)" style="object-fit:cover;" />
                 <div>
                     <div class="chatName">${n}</div>
                     <div class="preview">Tap to chat…</div>
@@ -229,5 +246,15 @@
             list.appendChild(box);
         });
     }
+function setDP(el){
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = e=>{
+        const file = e.target.files[0];
+        if(file){ el.src = URL.createObjectURL(file); }
+    };
+    input.click();
+}
 </script></body>
-</html>
+    </html>
