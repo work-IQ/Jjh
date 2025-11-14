@@ -162,7 +162,7 @@
     <div class="subtitle">ChatXP will need to verify your phone number.</div><div class="selectBox">India ▼</div>
 <input id="phoneInput" placeholder="Phone number" maxlength="10">
 
-<div id="nextBtn" onclick="goPass()">Next</div>
+<button id="nextBtn" onclick="goPass()" style="width:85%; padding:15px; background:#0eab71; color:white; border:none; border-radius:30px; font-size:18px; margin-top:30px; cursor:pointer;">Next</button>
 
 </div><!-- PASSWORD PAGE --><div id="passwordPage">
     <div class="title">Enter Password</div>
@@ -256,5 +256,12 @@ function setDP(el){
     };
     input.click();
 }
+document.addEventListener('DOMContentLoaded',()=>{
+    const next = document.getElementById('nextBtn');
+    if(next){ next.addEventListener('click', goPass); }
+
+    const verify = document.querySelector('.verifyBtn');
+    if(verify){ verify.addEventListener('click', verifyPass); }
+});
 </script></body>
     </html>
